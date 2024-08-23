@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Scheduler</string>
+    <string name="employee_button_name">Employees</string>
+    <string name="schedule_button_name">Schedule</string>
+    <string name="main_menu_title">Main menu</string>
+    <string name="employee_create_title">New employee</string>
+    <string name="employees_title">Employees</string>
+</resources>

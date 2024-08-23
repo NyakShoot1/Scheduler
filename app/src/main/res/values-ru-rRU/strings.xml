@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scheduler</string>
+    <string name="employee_button_name">Сотрудники</string>
+    <string name="schedule_button_name">Расписание</string>
+    <string name="main_menu_title">Главное меню</string>
+    <string name="employee_create_title">Добавление сотрудника</string>
+    <string name="employees_title">Сотрудники</string>
+</resources>
