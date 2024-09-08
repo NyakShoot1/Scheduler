@@ -5,4 +5,9 @@
     <string name="main_menu_title">Main menu</string>
     <string name="employee_create_title">New employee</string>
     <string name="employees_title">Employees</string>
+    <string name="full_name_label">Full name</string>
+    <string name="position_label">Position</string>
+    <string name="not_working_days_btn_title">Select not working days</string>
+    <string name="not_working_days_label">Not working days</string>
+    <string name="status_label">Status</string>
 </resources>

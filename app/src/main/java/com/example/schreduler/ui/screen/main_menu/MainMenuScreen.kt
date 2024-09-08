@@ -35,7 +35,7 @@ fun MainMenuScreen(
             iconId = R.drawable.calendar_icon,
             text = stringResource(id = R.string.schedule_button_name)
         ) {
-
+            navController.navigate(Screen.Schedule.route)
         }
     }
 }

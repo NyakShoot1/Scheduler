@@ -2,11 +2,11 @@ package com.example.schreduler
 
 import android.content.Context
 import androidx.room.Room
-import com.example.schreduler.data.dao.EmployeeDao
-import com.example.schreduler.data.dao.SchedulerDao
-import com.example.schreduler.data.database.AppDatabase
-import com.example.schreduler.data.repository.EmployeeRepository
-import com.example.schreduler.data.repository.SchedulerRepository
+import com.example.schreduler.data.room.dao.EmployeeDao
+import com.example.schreduler.data.room.dao.SchedulerDao
+import com.example.schreduler.data.room.database.AppDatabase
+import com.example.schreduler.data.room.repository.EmployeeRepository
+import com.example.schreduler.data.room.repository.SchedulerRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

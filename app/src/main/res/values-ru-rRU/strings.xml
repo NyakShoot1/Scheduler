@@ -6,4 +6,9 @@
     <string name="main_menu_title">Главное меню</string>
     <string name="employee_create_title">Добавление сотрудника</string>
     <string name="employees_title">Сотрудники</string>
+    <string name="full_name_label">ФИО</string>
+    <string name="position_label">Должность</string>
+    <string name="not_working_days_btn_title">Выбрать нерабочие дни</string>
+    <string name="not_working_days_label">Нерабочие дни</string>
+    <string name="status_label">Статус</string>
 </resources>

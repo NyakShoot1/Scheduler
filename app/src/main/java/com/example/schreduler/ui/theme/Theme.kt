@@ -1,14 +1,32 @@
 package com.example.schreduler.ui.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+
+data class ColorPalette(
+    val mainColor: Color,
+    val buttonColor: Color,
+    val darkTextColor: Color,
+    val lightTextColor: Color,
+    val background: Color,
+    val buttonText: Color
+)
+
+
+val baseLightPalette = ColorPalette(
+    mainColor = Olive,
+    darkTextColor = Olive,
+    lightTextColor = LightBrown,
+    buttonColor = LightBrown,
+    background = Wolf,
+    buttonText = Color.White
+)
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -40,7 +58,7 @@ fun SchedulerTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        dynamicColor -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }

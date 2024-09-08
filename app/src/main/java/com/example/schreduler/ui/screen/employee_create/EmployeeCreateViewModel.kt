@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.schreduler.data.model.EmployeeDbEntity
-import com.example.schreduler.data.repository.EmployeeRepository
+import com.example.schreduler.data.room.model.EmployeeDbEntity
+import com.example.schreduler.data.room.repository.EmployeeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,9 +22,10 @@ class EmployeeCreateViewModel @Inject constructor(
         _employeeCreateUiState.value = _employeeCreateUiState.value.update()
     }
 
-    fun createNewEmployee(newEmployee: EmployeeDbEntity) = viewModelScope.launch {
+    fun createNewEmployee() = viewModelScope.launch {
+        val newEmployee2 = EmployeeDbEntity(id = 1,fullName = "adfsa", position = "dsa", noWorkingDays = "1", status = "F")
         try {
-            employeeRepository.insertNewEmployee(newEmployee)
+            employeeRepository.insertNewEmployee(newEmployee2)
         } catch (e: Exception){
 
         }

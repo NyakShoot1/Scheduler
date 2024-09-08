@@ -1,4 +1,4 @@
-package com.example.schreduler.data.dao
+package com.example.schreduler.data.room.dao
 
 import androidx.room.Dao
 

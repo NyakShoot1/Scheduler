@@ -1,10 +1,10 @@
-package com.example.schreduler.data.dao
+package com.example.schreduler.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.schreduler.data.model.EmployeeDbEntity
-import com.example.schreduler.data.schemas.EmployeeSchema
+import com.example.schreduler.data.room.model.EmployeeDbEntity
+import com.example.schreduler.data.room.schemas.EmployeeSchema
 
 @Dao
 interface EmployeeDao {

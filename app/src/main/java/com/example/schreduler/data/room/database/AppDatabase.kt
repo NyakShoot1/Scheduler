@@ -1,11 +1,11 @@
-package com.example.schreduler.data.database
+package com.example.schreduler.data.room.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.schreduler.data.dao.EmployeeDao
-import com.example.schreduler.data.dao.SchedulerDao
-import com.example.schreduler.data.model.EmployeeDbEntity
-import com.example.schreduler.data.model.SchedulerDbEntity
+import com.example.schreduler.data.room.dao.EmployeeDao
+import com.example.schreduler.data.room.dao.SchedulerDao
+import com.example.schreduler.data.room.model.EmployeeDbEntity
+import com.example.schreduler.data.room.model.SchedulerDbEntity
 
 @Database(
     version = 1,
