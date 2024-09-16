@@ -49,4 +49,10 @@ class ScheduleViewModel @Inject constructor(
         }
     }
 
+    fun selectDay(day: String) {
+        updateUIState {
+            copy(selectedDay = mutableStateOf(day))
+        }
+    }
+
 }

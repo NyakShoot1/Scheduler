@@ -1,7 +1,5 @@
 package com.example.schreduler.ui.screen.schedule.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +10,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -20,19 +17,21 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DaysOfMonthCard(
-    days: List<String>
-){
-
+    days: List<String>,
+    selectedDay: String?,
+    currentDay: String,
+    onDaySelected: (String) -> Unit
+) {
     val daysOfWeek = listOf("пн", "вт", "ср", "чт", "пт", "сб", "вс") // TODO resources
 
-    Card (
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(230.dp),
+            .height(400.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFE9E4E4)
         ),
-    ){
+    ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "September", // TODO месяц автоматически
@@ -55,12 +54,12 @@ fun DaysOfMonthCard(
             columns = StaggeredGridCells.Fixed(7),
             content = {
                 items(days) { day ->
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        DayCell(day = day)
-                    }
+                    DayCell(
+                        day = day,
+                        isSelected = day == selectedDay,
+                        isCurrentDay = day == currentDay,
+                        onDayClick = { if (day.isNotEmpty()) onDaySelected(day) }
+                    )
                 }
             },
             userScrollEnabled = false,

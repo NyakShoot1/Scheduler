@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,19 +21,17 @@ fun MainMenuScreen(
     navController: NavHostController
 ){
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(bottom = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Bottom
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         MainMenuButton(
-            iconId = R.drawable.employee_icon,
             text = stringResource(id = R.string.employee_button_name)
         ) {
             navController.navigate(Screen.Employees.route)
         }
         MainMenuButton(
-            iconId = R.drawable.calendar_icon,
             text = stringResource(id = R.string.schedule_button_name)
         ) {
             navController.navigate(Screen.Schedule.route)

@@ -36,10 +36,11 @@ fun EmployeesScreen(
             ) {
                 items(viewModel.employeesUiState.value.employees) { employee ->
                     EmployeeCard(
-                        fullName = employee.fullName,
+                        firstName = employee.fullName,
+                        surname = "",
                         position = employee.position,
-                        notWorkingDays = employee.noWorkingDays,
-                        status = employee.status
+                        priorities = listOf(Pair("пн", 1), Pair("сб", 2)), // todo
+                        status = ""
                     ){
 
                     }

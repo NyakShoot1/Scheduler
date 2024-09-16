@@ -6,38 +6,21 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-data class ColorPalette(
-    val mainColor: Color,
-    val buttonColor: Color,
-    val darkTextColor: Color,
-    val lightTextColor: Color,
-    val background: Color,
-    val buttonText: Color
-)
-
-
-val baseLightPalette = ColorPalette(
-    mainColor = Olive,
-    darkTextColor = Olive,
-    lightTextColor = LightBrown,
-    buttonColor = LightBrown,
-    background = Wolf,
-    buttonText = Color.White
-)
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = light_primary,
+    secondary = light_surface,
+    tertiary = light_on_surface
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = light_primary,
+    surface = light_surface,
+    onSurface = light_on_surface,
+    onSurfaceVariant = light_on_surface_variant,
+    surfaceContainerLow = light_on_surface_container_low
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

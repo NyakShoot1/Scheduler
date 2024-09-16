@@ -97,4 +97,7 @@ dependencies {
     // Ortools
     // implementation("com.google.ortools:ortools-java:9.10.4067")
 
+    //ColorPicker
+    implementation ("com.github.skydoves:colorpicker-compose:1.1.2")
+
 }

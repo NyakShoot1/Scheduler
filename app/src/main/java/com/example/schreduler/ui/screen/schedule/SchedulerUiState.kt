@@ -10,5 +10,8 @@ data class SchedulerUiState(
     val events: MutableList<Event> = mutableListOf(),
     val currentMonth: MutableState<Calendar> = mutableStateOf(Calendar.getInstance()), // #TODO Под вопросом
     val daysOfMonth: MutableList<String> = mutableListOf(),
-    val selectedDateEvent: MutableState<List<Event>> = mutableStateOf(listOf())
+    val selectedDateEvent: MutableState<List<Event>> = mutableStateOf(listOf()),
+
+    val selectedDay: MutableState<String?> = mutableStateOf(null),
+    val currentDay: String = Calendar.getInstance().get(Calendar.DAY_OF_MONTH).toString()
 )
