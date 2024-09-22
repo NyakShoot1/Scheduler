@@ -6,7 +6,7 @@ import com.example.schreduler.data.room.dao.EmployeeDao
 import com.example.schreduler.data.room.dao.SchedulerDao
 import com.example.schreduler.data.room.database.AppDatabase
 import com.example.schreduler.data.room.repository.EmployeeRepository
-import com.example.schreduler.data.room.repository.SchedulerRepository
+import com.example.schreduler.data.room.repository.ScheduleRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -50,7 +50,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSchedulerRepository(schedulerDao: SchedulerDao): SchedulerRepository =
-        SchedulerRepository(schedulerDao)
+    fun provideSchedulerRepository(schedulerDao: SchedulerDao): ScheduleRepository =
+        ScheduleRepository(schedulerDao)
 
 }

@@ -3,7 +3,7 @@ package com.example.schreduler.data.room.repository
 import com.example.schreduler.data.room.dao.SchedulerDao
 import javax.inject.Inject
 
-class SchedulerRepository @Inject constructor(
+class ScheduleRepository @Inject constructor(
     private val schedulerDao: SchedulerDao
 ) {
 

@@ -2,7 +2,7 @@ package com.example.schreduler.data.room.schemas
 
 import androidx.room.ColumnInfo
 
-data class SchedulerTuple(
+data class ScheduleTuple(
     val id: Long,
     @ColumnInfo(name = "schedule") val schedule: Map<Int, List<Int>>,
     @ColumnInfo(name = "month") val month: Byte,
