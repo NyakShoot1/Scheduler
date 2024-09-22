@@ -1,5 +1,6 @@
 package com.example.schreduler.ui.screen.employee_create.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,22 +28,24 @@ import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 
 @Composable
-fun EmployeeColorSelector(){
+fun EmployeeColorSelector(color: MutableState<Color>) {
     Row(
         modifier = Modifier.fillMaxWidth(0.9f),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text("Цвет")
+        Text("Цвет") // todo resource
         Spacer(modifier = Modifier.width(5.dp))
         Box(
-            modifier = Modifier.clickable {  }
+            modifier = Modifier
+                .background(color.value)
+                .clickable { }
         )
     }
 }
 
 @Composable
-fun ColorPicker(){
+private fun ColorPicker() {
     // on below line we are creating a variable for controller
     val controller = rememberColorPickerController()
 

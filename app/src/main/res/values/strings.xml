@@ -10,4 +10,11 @@
     <string name="not_working_days_btn_title">Select not working days</string>
     <string name="not_working_days_label">Not working days</string>
     <string name="status_label">Status</string>
+    <string name="monday_label">Mo</string>
+    <string name="tuesday_label">Tu</string>
+    <string name="wednesday_label">We</string>
+    <string name="thursday_label">Th</string>
+    <string name="friday_label">Fr</string>
+    <string name="saturday_label">Sa</string>
+    <string name="sunday_label">Su</string>
 </resources>

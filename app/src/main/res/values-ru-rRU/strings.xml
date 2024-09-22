@@ -11,4 +11,11 @@
     <string name="not_working_days_btn_title">Выбрать нерабочие дни</string>
     <string name="not_working_days_label">Нерабочие дни</string>
     <string name="status_label">Статус</string>
+    <string name="monday_label">Пн</string>
+    <string name="tuesday_label">Вт</string>
+    <string name="wednesday_label">Ср</string>
+    <string name="thursday_label">Чт</string>
+    <string name="friday_label">Пт</string>
+    <string name="saturday_label">Сб</string>
+    <string name="sunday_label">Вс</string>
 </resources>
