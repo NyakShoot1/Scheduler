@@ -32,7 +32,7 @@ object AppModule {
     ) = Room.databaseBuilder(
         app,
         AppDatabase::class.java,
-        "database.db"
+        "database2.db"
     ).build()
 
     @Singleton

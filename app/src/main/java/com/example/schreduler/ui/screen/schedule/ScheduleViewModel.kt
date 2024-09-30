@@ -2,16 +2,21 @@ package com.example.schreduler.ui.screen.schedule
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.schreduler.data.model.Employee
+import com.example.schreduler.data.room.repository.EmployeeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.time.LocalDate
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
-
-): ViewModel() {
+    private val employeeRepository: EmployeeRepository
+) : ViewModel() {
 
     private val mapOfDaysOfWeek: Map<String, Int> = mapOf(
         "MONDAY" to 0,
@@ -21,7 +26,9 @@ class ScheduleViewModel @Inject constructor(
         "FRIDAY" to 4,
         "SATURDAY" to 5,
         "SUNDAY" to 6,
-        )
+    )
+
+    private val _testSchedule: MutableMap<Int, List<Employee>> = mutableMapOf()
 
     private val _scheduleUiState = mutableStateOf(SchedulerUiState())
     val scheduleUiState: State<SchedulerUiState> = _scheduleUiState
@@ -30,29 +37,25 @@ class ScheduleViewModel @Inject constructor(
         _scheduleUiState.value = _scheduleUiState.value.update()
     }
 
-    public fun getCurrentMonth(): Calendar {
-        return _scheduleUiState.value.currentMonth.value
-    }
-
-    fun generateListOfDaysForMonth(){
-        val firstDayOfMonth = mapOfDaysOfWeek[LocalDate.now().withDayOfMonth(1).dayOfWeek.toString()]
-        val lastDayOfMonth = LocalDate.now().lengthOfMonth()
-        val newDaysOfMonth: MutableList<String> = mutableListOf()
-        for (i in 1..firstDayOfMonth!!){
-            newDaysOfMonth.add("")
-        }
-        for (i in 1..lastDayOfMonth){
-            newDaysOfMonth.add(i.toString())
+    fun generateTestSchedule() = viewModelScope.launch {
+        for (i in 1..Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)) {
+            _testSchedule[i] = listOf(
+                employeeRepository.getEmployeeById(Random.nextLong(1, 5)).tupleToEmployee(),
+                employeeRepository.getEmployeeById(Random.nextLong(1, 5)).tupleToEmployee()
+            )
         }
         updateUIState {
-            copy(daysOfMonth = newDaysOfMonth)
+            copy(
+                schedule = mutableStateOf(_testSchedule)
+            )
         }
     }
 
-    fun selectDay(day: String) {
-        updateUIState {
-            copy(selectedDay = mutableStateOf(day))
+    fun getEmployeesColors(employees: List<Employee>): List<Color> {
+        val colors: MutableList<Color> = mutableListOf()
+        for (employee in employees) {
+            colors.add(employee.color)
         }
+        return colors
     }
-
 }

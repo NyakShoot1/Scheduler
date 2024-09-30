@@ -18,4 +18,5 @@
     <string name="friday_label">Пт</string>
     <string name="saturday_label">Сб</string>
     <string name="sunday_label">Вс</string>
+    <string name="create_btn_label">Создать</string>
 </resources>

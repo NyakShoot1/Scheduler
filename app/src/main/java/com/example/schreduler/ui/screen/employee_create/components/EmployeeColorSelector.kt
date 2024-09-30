@@ -7,20 +7,28 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.schreduler.ui.screen.employee_create.EmployeeCreateViewModel
 import com.github.skydoves.colorpicker.compose.AlphaSlider
 import com.github.skydoves.colorpicker.compose.AlphaTile
 import com.github.skydoves.colorpicker.compose.BrightnessSlider
@@ -28,7 +36,11 @@ import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 
 @Composable
-fun EmployeeColorSelector(color: MutableState<Color>) {
+fun EmployeeColorSelector(
+    viewModel: EmployeeCreateViewModel = hiltViewModel()
+) {
+    val color = viewModel.employeeCreateUiState.value.color
+    var showDialog by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier.fillMaxWidth(0.9f),
         horizontalArrangement = Arrangement.Center,
@@ -38,93 +50,89 @@ fun EmployeeColorSelector(color: MutableState<Color>) {
         Spacer(modifier = Modifier.width(5.dp))
         Box(
             modifier = Modifier
+                .height(35.dp)
+                .width(120.dp)
+                .clip(RoundedCornerShape(5.dp))
                 .background(color.value)
-                .clickable { }
+                .clickable { showDialog = true }
         )
+    }
+    if (showDialog) {
+        ColorPicker(onDismissRequest = { showDialog = false }, color)
     }
 }
 
 @Composable
-private fun ColorPicker() {
-    // on below line we are creating a variable for controller
+private fun ColorPicker(
+    onDismissRequest: () -> Unit,
+    color: MutableState<Color>,
+) {
     val controller = rememberColorPickerController()
-
-    // on below line we are creating a column,
-    Column(
-        // on below line we are adding a modifier to it,
-        modifier = Modifier
-            .fillMaxSize()
-            // on below line we are adding a padding.
-            .padding(all = 30.dp)
+    Dialog(
+        onDismissRequest = { onDismissRequest() }
     ) {
-        // on below line we are adding a row.
-        Row(
-            // on below line we are adding a modifier
-            modifier = Modifier.fillMaxWidth(),
-            // on below line we are adding horizontal
-            // and vertical alignment.
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxHeight(0.8f)
+                .fillMaxWidth(0.9f)
+                .background(Color.LightGray),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround
         ) {
-            // on below line we are adding a alpha tile.
             AlphaTile(
-                // on below line we are
-                // adding modifier to it
                 modifier = Modifier
-                    .fillMaxWidth()
-                    // on below line
-                    // we are adding a height.
-                    .height(60.dp)
-                    // on below line we are adding clip.
+                    .fillMaxWidth(0.6f)
+                    .height(30.dp)
                     .clip(RoundedCornerShape(6.dp)),
-                // on below line we are adding controller.
                 controller = controller
             )
+            HsvColorPicker(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .padding(10.dp),
+                controller = controller,
+                onColorChanged = { }
+            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                AlphaSlider(
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .padding(5.dp)
+                        .height(35.dp),
+                    controller = controller,
+                    tileOddColor = Color.White,
+                    tileEvenColor = Color.Black
+                )
+                BrightnessSlider(
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .padding(5.dp)
+                        .height(35.dp),
+                    controller = controller,
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(0.9f),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                TextButton(
+                    onClick = { onDismissRequest() },
+                    modifier = Modifier.padding(2.dp),
+                ) { Text("Dismiss") }
+                TextButton(
+                    onClick = {
+                        color.value = controller.selectedColor.value
+                        onDismissRequest()
+                    },
+                    modifier = Modifier.padding(2.dp),
+                ) { Text("Confirm") }
+            }
         }
-        // on below line we are
-        // adding horizontal color picker.
-        HsvColorPicker(
-            // on below line we are
-            // adding a modifier to it
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(450.dp)
-                .padding(10.dp),
-            // on below line we are
-            // adding a controller
-            controller = controller,
-            // on below line we are
-            // adding on color changed.
-            onColorChanged = {}
-        )
-        // on below line we are adding a alpha slider.
-        AlphaSlider(
-            // on below line we
-            // are adding a modifier to it.
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-                .height(35.dp),
-            // on below line we are
-            // adding a controller.
-            controller = controller,
-            // on below line we are
-            // adding odd and even color.
-            tileOddColor = Color.White,
-            tileEvenColor = Color.Black
-        )
-        // on below line we are
-        // adding a brightness slider.
-        BrightnessSlider(
-            // on below line we
-            // are adding a modifier to it.
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-                .height(35.dp),
-            // on below line we are
-            // adding a controller.
-            controller = controller,
-        )
     }
 }

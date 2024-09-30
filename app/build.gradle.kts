@@ -100,4 +100,12 @@ dependencies {
     //ColorPicker
     implementation ("com.github.skydoves:colorpicker-compose:1.1.2")
 
+
+    //debug
+    val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
+    implementation(composeBom)
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+
 }

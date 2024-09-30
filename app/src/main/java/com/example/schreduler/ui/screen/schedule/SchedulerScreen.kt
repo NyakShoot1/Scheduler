@@ -4,21 +4,26 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.schreduler.ui.screen.schedule.components.DaysOfMonthCard
+import androidx.navigation.NavHostController
+import com.example.schreduler.ui.navigation.Screen
+import com.example.schreduler.ui.screen.schedule.components.CalendarOnMonth
 
 
 @Composable
 fun ScheduleScreen(
+    navController: NavHostController,
     viewModel: ScheduleViewModel = hiltViewModel()
 ) {
     LaunchedEffect(Unit) {
-        viewModel.generateListOfDaysForMonth()
+        viewModel.generateTestSchedule()
     }
 
     val uiState = viewModel.scheduleUiState.value
@@ -30,11 +35,18 @@ fun ScheduleScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        DaysOfMonthCard(
-            days = uiState.daysOfMonth,
-            selectedDay = uiState.selectedDay.value,
-            currentDay = uiState.currentDay,
-            onDaySelected = { day -> viewModel.selectDay(day) }
-        )
+        if (uiState.schedule.value.isNotEmpty()) {
+            CalendarOnMonth(
+                days = uiState.schedule,
+                currentDay = uiState.currentDay,
+            )
+        }
+        Button(
+            onClick = {
+                navController.navigate(Screen.ScheduleCreate.route)
+            }
+        ) {
+            Text("Создать расписание")
+        }
     }
 }

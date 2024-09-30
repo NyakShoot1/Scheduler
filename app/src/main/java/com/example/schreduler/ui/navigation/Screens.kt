@@ -14,6 +14,7 @@ sealed class Screen(val title: String, val route: String){
 
     object EmployeeCreate: Screen(R.string.employee_create_title.toString(), Destination.EMPLOYEE_CREATE)
 
+    object ScheduleCreate: Screen("", Destination.SCHEDULE_CREATE)
 }
 
 object Destination{
@@ -22,6 +23,7 @@ object Destination{
 
     const val EMPLOYEES = "employees"
     const val SCHEDULE = "schedule"
+    const val SCHEDULE_CREATE = "schedule_create"
 
     const val EMPLOYEE_DETAILS = "employee_details/{employee_id}"
     const val EMPLOYEE_CREATE = "employee_create"

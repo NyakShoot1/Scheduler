@@ -8,6 +8,7 @@ import com.example.schreduler.ui.screen.employee_create.EmployeeCreateScreen
 import com.example.schreduler.ui.screen.employees.EmployeesScreen
 import com.example.schreduler.ui.screen.main_menu.MainMenuScreen
 import com.example.schreduler.ui.screen.schedule.ScheduleScreen
+import com.example.schreduler.ui.screen.schedule_create.ScheduleCreateScreen
 
 @Composable
 fun SchedulerNavGraph(
@@ -24,10 +25,13 @@ fun SchedulerNavGraph(
             EmployeesScreen()
         }
         composable(Screen.Schedule.route){
-            ScheduleScreen()
+            ScheduleScreen(navController)
+        }
+        composable(Screen.ScheduleCreate.route){
+            ScheduleCreateScreen()
         }
         composable(Screen.EmployeeCreate.route){
-            EmployeeCreateScreen()
+            EmployeeCreateScreen(navController)
         }
     }
 }

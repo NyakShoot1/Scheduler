@@ -7,6 +7,7 @@ import com.example.schreduler.utils.nextColor
 import kotlin.random.Random
 
 data class Employee(
+    val id: Long = 0,
     var name: String = "",
     var surname: String = "",
     var color: Color = Random.nextColor()
@@ -19,5 +20,9 @@ data class Employee(
             color = color.toArgb()
         )
 
+    }
+
+    fun getFullName(): String{
+        return "$name $surname"
     }
 }

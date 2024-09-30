@@ -22,7 +22,7 @@ class EmployeesViewModel @Inject constructor(
     }
 
     fun getEmployees() = viewModelScope.launch {
-        val listEmployees = employeeRepository.getEmployees()
+        val listEmployees = mutableStateOf(employeeRepository.getEmployees())
         updateUIState {
             copy(employees = listEmployees)
         }

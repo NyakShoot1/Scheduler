@@ -29,18 +29,14 @@ fun EmployeesScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        if (viewModel.employeesUiState.value.employees.isNotEmpty()) {
+        if (viewModel.employeesUiState.value.employees.value.isNotEmpty()) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(viewModel.employeesUiState.value.employees) { employee ->
+                items(viewModel.employeesUiState.value.employees.value) { employee ->
                     EmployeeCard(
-                        firstName = employee.fullName,
-                        surname = "",
-                        position = employee.position,
-                        priorities = listOf(Pair("пн", 1), Pair("сб", 2)), // todo
-                        status = ""
+                        employee = employee.tupleToEmployee()
                     ){
 
                     }

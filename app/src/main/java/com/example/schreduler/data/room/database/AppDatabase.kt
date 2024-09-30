@@ -7,7 +7,6 @@ import com.example.schreduler.data.room.dao.EmployeeDao
 import com.example.schreduler.data.room.dao.SchedulerDao
 import com.example.schreduler.data.room.model.EmployeeDbEntity
 import com.example.schreduler.data.room.model.ScheduleDbEntity
-import com.example.schreduler.utils.ColorConverter
 import com.example.schreduler.utils.JsonMapConverter
 
 @Database(
@@ -17,7 +16,7 @@ import com.example.schreduler.utils.JsonMapConverter
         ScheduleDbEntity::class
     ]
 )
-@TypeConverters(JsonMapConverter::class, ColorConverter::class)
+@TypeConverters(JsonMapConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getEmployeeDao(): EmployeeDao
