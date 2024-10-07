@@ -28,7 +28,7 @@ fun SchedulerNavGraph(
             ScheduleScreen(navController)
         }
         composable(Screen.ScheduleCreate.route){
-            ScheduleCreateScreen()
+            ScheduleCreateScreen(navController)
         }
         composable(Screen.EmployeeCreate.route){
             EmployeeCreateScreen(navController)

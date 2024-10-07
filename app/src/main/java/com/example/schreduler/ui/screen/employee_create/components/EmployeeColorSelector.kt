@@ -124,7 +124,7 @@ private fun ColorPicker(
                 TextButton(
                     onClick = { onDismissRequest() },
                     modifier = Modifier.padding(2.dp),
-                ) { Text("Dismiss") }
+                ) { Text("Dismiss") } //todo
                 TextButton(
                     onClick = {
                         color.value = controller.selectedColor.value

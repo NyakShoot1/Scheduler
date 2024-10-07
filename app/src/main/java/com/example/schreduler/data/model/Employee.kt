@@ -22,6 +22,10 @@ data class Employee(
 
     }
 
+    fun toEmployeeForSchedule(): EmployeeForSchedule{
+        return EmployeeForSchedule(id, mutableSetOf())
+    }
+
     fun getFullName(): String{
         return "$name $surname"
     }

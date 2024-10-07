@@ -27,17 +27,18 @@ fun CountEmployeesPerDayDropMenu(countEmployees: Int, countEmployeesPerDay: Muta
     else
         Icons.Filled.KeyboardArrowDown
 
-    OutlinedTextField(
+    OutlinedTextField( // TODO Открытие списка в правильном месте
         value = countEmployeesPerDay.intValue.toString(),
         onValueChange = { countEmployeesPerDay.intValue = it.toInt() },
         modifier = Modifier
-            .fillMaxWidth(0.3f),
+            .fillMaxWidth(0.4f),
         label = { Text("") },
         trailingIcon = {
             Icon(icon, "contentDescription",
                 Modifier.clickable { dmExpended = !dmExpended }
             )
-        }
+        },
+        readOnly = true
     )
 
     DropdownMenu(

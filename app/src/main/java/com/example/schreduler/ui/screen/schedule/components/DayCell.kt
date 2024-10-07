@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.schreduler.data.model.Employee
@@ -67,18 +68,38 @@ fun DayCell(
                 color = if (isCurrentDay) Color.White else Color.Black
             )
             Row(
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(3.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .background(colors[0], shape = CircleShape)
-                        .size(7.dp)
-                )
-                Box(
-                    modifier = Modifier
-                        .background(colors[1], shape = CircleShape)
-                        .size(7.dp)
-                )
+                if (colors.size > 2){
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .background(color = Color.Blue, shape = CircleShape)
+                            .size(12.dp)
+                            .clip(CircleShape)
+                    ){
+                        Text( //todo fix отображение
+                            text = colors.size.toString(),
+                            color = Color.White,
+                            fontSize = 8.sp,
+                            modifier = Modifier.align(Alignment.Center),
+                        )
+                    }
+                }else{
+                    Box(
+                        modifier = Modifier
+                            .background(colors[0], shape = CircleShape)
+                            .size(7.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .background(colors[1], shape = CircleShape)
+                            .size(7.dp)
+                    )
+                }
+
+
             }
         }
     }

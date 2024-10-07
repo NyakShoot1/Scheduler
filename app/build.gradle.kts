@@ -28,6 +28,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isCrunchPngs = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(

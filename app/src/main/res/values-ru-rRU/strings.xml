@@ -19,4 +19,20 @@
     <string name="saturday_label">Сб</string>
     <string name="sunday_label">Вс</string>
     <string name="create_btn_label">Создать</string>
+    <string name="january_label">Январь</string>
+    <string name="february_label">Февраль</string>
+    <string name="march_label">Март</string>
+    <string name="april_label">Апрель</string>
+    <string name="may_label">Май</string>
+    <string name="june_label">Июнь</string>
+    <string name="july_label">Июль</string>
+    <string name="august_label">Август</string>
+    <string name="september_label">Сентябрь</string>
+    <string name="october_label">Октябрь</string>
+    <string name="november_label">Ноябрь</string>
+    <string name="december_label">Декабрь</string>
+    <string name="name_label">Имя</string>
+    <string name="surname_label">Фамилия</string>
+    <string name="fill_fields_warn">Заполните все поля!</string>
+    <string name="create_schedule_label">Создать расписание</string>
 </resources>

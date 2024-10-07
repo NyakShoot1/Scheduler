@@ -7,6 +7,6 @@ import androidx.compose.runtime.snapshots.SnapshotStateMap
 import com.example.schreduler.data.model.Employee
 
 data class ScheduleCreateUiState(
-    val employeesWithNotWorkingDays: SnapshotStateMap<Employee, Set<Int>> = mutableStateMapOf(),
+    val employeesWithNotWorkingDays: SnapshotStateMap<Employee, MutableList<Int>> = mutableStateMapOf(),
     val countEmployeesPerDay: MutableIntState = mutableIntStateOf(0)
 )
