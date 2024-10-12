@@ -1,5 +1,6 @@
 package com.example.schreduler.ui.screen.employees
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,15 @@ class EmployeesViewModel @Inject constructor(
         val listEmployees = mutableStateOf(employeeRepository.getEmployees())
         updateUIState {
             copy(employees = listEmployees)
+        }
+    }
+
+    fun deleteEmployee(id: Long) = viewModelScope.launch{
+        try {
+            employeeRepository.deleteEmployeeById(id)
+            getEmployees()
+        } catch (e: Exception){
+            Log.d("EmployeeDelete", e.toString())
         }
     }
 }

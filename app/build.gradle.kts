@@ -97,8 +97,8 @@ dependencies {
     ksp("androidx.room:room-compiler:$roomVersion")
 
 
-    // Ortools
-    // implementation("com.google.ortools:ortools-java:9.10.4067")
+    // custom calendar
+    implementation("com.kizitonwose.calendar:compose:2.6.0")
 
     //ColorPicker
     implementation ("com.github.skydoves:colorpicker-compose:1.1.2")

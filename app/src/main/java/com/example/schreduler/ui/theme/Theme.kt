@@ -1,5 +1,6 @@
 package com.example.schreduler.ui.theme
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -33,6 +34,7 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SchedulerTheme(
     darkTheme: Boolean = false,//isSystemInDarkTheme(),

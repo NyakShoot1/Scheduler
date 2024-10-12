@@ -33,9 +33,28 @@ fun ScheduleCreateScreen(
 ) {
     val uiState = viewModel.scheduleCreateUiState.value
     val context = LocalContext.current
+    val doneState = viewModel.doneInsert.value
 
     LaunchedEffect(Unit) {
         viewModel.getEmployees()
+    }
+
+    LaunchedEffect(doneState) {
+        if (doneState) {
+            Toast.makeText(
+                context,
+                "Расписание создано",
+                Toast.LENGTH_SHORT
+            ).show()
+            navController.popBackStack()
+        } else if (!doneState && viewModel.scheduleCreateUiState.value.startGeneration.value) {
+            // Показываем сообщение об ошибке только если попытка создания расписания была
+            Toast.makeText(
+                context,
+                "Ошибка при создании расписания!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     when (uiState.employeesWithNotWorkingDays.isNotEmpty()) {
@@ -75,8 +94,7 @@ fun ScheduleCreateScreen(
                 DefaultBlueButton(
                     onClick = {
                         if (uiState.countEmployeesPerDay.intValue > 0) {
-                            viewModel.generateSchedule() //todo проверка на создание и добавление расписания
-                            navController.popBackStack()
+                            viewModel.generateSchedule()
                         } else
                             Toast.makeText(
                                 context,

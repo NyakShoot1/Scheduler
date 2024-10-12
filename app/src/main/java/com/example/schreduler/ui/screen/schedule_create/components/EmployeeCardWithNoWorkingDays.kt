@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +20,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,13 +40,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.schreduler.data.model.Employee
-import com.example.schreduler.ui.screen.default_components.CalendarBase
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun EmployeeCardWithNoWorkingDays(
     employee: Employee,
-    selectedDays: MutableList<Int>
+    selectedDays: MutableSet<Int>
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
@@ -154,9 +151,9 @@ fun EmployeeCardWithNoWorkingDays(
 @Composable
 fun DaysSelectorDialog(
     onDismissRequest: () -> Unit,
-    selectedDays: MutableList<Int>
+    selectedDays: MutableSet<Int>
 ) {
-    var tempSelectedDays by remember { mutableStateOf(selectedDays.toList()) }
+    var tempSelectedDays by remember { mutableStateOf(selectedDays.toSet()) }
 
     Dialog(onDismissRequest = onDismissRequest) {
         Column(
@@ -164,38 +161,15 @@ fun DaysSelectorDialog(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .clip(RoundedCornerShape(10.dp))
-                .fillMaxHeight(0.7f)
+                .fillMaxHeight(0.5f)
                 .fillMaxWidth(0.9f)
                 .background(Color.White),
         ) {
-            CalendarBase(
-                dayContent = { day ->
-                    Box(
-                        modifier = Modifier
-                            .aspectRatio(1f)
-                            .background(
-                                if (day in tempSelectedDays) Color.Blue else Color.Transparent,
-                                CircleShape
-                            )
-                            .clip(CircleShape)
-                            .clickable {
-                                tempSelectedDays = if (day in tempSelectedDays) {
-                                    tempSelectedDays - day
-                                } else {
-                                    tempSelectedDays + day
-                                }
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            day.toString(),
-                            color = if (day in tempSelectedDays) Color.White else Color.Black,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-                }
-            )
 
+            ScheduleCreateCalendar(
+                selectedDays = tempSelectedDays,
+                onDaysChanged = { tempSelectedDays = it.toSet() }
+            )
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,

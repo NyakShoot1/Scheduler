@@ -14,5 +14,5 @@ interface SchedulerDao {
     fun insertNewSchedule(entity: ScheduleDbEntity)
 
     @Query("SELECT schedule FROM schedule WHERE month= :month AND year= :year")
-    fun getSchedule(month: Byte, year: Int): ScheduleTuple?
+    fun getSchedule(month: Int, year: Int): ScheduleTuple?
 }

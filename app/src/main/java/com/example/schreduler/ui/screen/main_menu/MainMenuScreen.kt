@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -20,6 +21,7 @@ import com.example.schreduler.ui.screen.main_menu.components.MainMenuButton
 fun MainMenuScreen(
     navController: NavHostController
 ){
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize().padding(bottom = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -30,6 +32,7 @@ fun MainMenuScreen(
             text = stringResource(id = R.string.employee_button_name)
         ) {
             navController.navigate(Screen.Employees.route)
+
         }
         MainMenuButton(
             text = stringResource(id = R.string.schedule_button_name)

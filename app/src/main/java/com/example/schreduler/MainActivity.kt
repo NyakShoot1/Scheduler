@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         when (currentRoute(navController)) {
                             Screen.Employees.route -> EmployeesTopAppBar(navController)
-                            Screen.Schedule.route -> ScheduleTopAppBar()
+                            Screen.Schedule.route -> ScheduleTopAppBar(navController)
                             Screen.EmployeeCreate.route -> EmployeeCreateTopAppBar(navController)
                         }
                     }

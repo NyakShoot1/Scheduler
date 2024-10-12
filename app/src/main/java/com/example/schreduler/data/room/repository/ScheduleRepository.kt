@@ -17,7 +17,7 @@ class ScheduleRepository @Inject constructor(
         }
     }
 
-    suspend fun getSchedule(month: Byte, year: Int): ScheduleTuple? {
+    suspend fun getSchedule(month: Int, year: Int): ScheduleTuple? {
         return withContext(Dispatchers.IO){
             schedulerDao.getSchedule(month, year)
         }

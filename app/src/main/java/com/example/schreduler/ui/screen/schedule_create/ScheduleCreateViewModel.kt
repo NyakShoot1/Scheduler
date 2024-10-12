@@ -9,17 +9,17 @@ import com.example.schreduler.data.model.EmployeeForSchedule
 import com.example.schreduler.data.model.Schedule
 import com.example.schreduler.data.room.repository.EmployeeRepository
 import com.example.schreduler.data.room.repository.ScheduleRepository
-import com.example.schreduler.utils.CalendarHandler
 import com.example.schreduler.utils.ScheduleGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.time.Year
+import java.time.YearMonth
 import javax.inject.Inject
 
 @HiltViewModel
 class ScheduleCreateViewModel @Inject constructor(
     private val employeeRepository: EmployeeRepository,
     private val scheduleRepository: ScheduleRepository,
-    private val calendarHandler: CalendarHandler = CalendarHandler()
 ) : ViewModel() {
 
     private val _scheduleCreateUiState = mutableStateOf(ScheduleCreateUiState())
@@ -38,16 +38,18 @@ class ScheduleCreateViewModel @Inject constructor(
         val employees = employeeRepository.getEmployees()
         updateUIState {
             for (employee in employees) {
-                employeesWithNotWorkingDays[employee.tupleToEmployee()] = mutableListOf()
+                employeesWithNotWorkingDays[employee.tupleToEmployee()] = mutableSetOf()
             }
             copy(employeesWithNotWorkingDays = employeesWithNotWorkingDays)
         }
     }
 
     fun generateSchedule() = viewModelScope.launch {
-        val daysInMonth = calendarHandler.getCurrentDaysInMonth()
-        val currentMonth = calendarHandler.getCurrentMonth()
-        val currentYear = calendarHandler.getCurrentYear()
+        _scheduleCreateUiState.value.startGeneration.value = true
+
+        val daysInMonth = YearMonth.now().atEndOfMonth().dayOfMonth
+        val currentMonth = YearMonth.now().month.value
+        val currentYear = Year.now().value
 
         val employeesForSchedule: MutableList<EmployeeForSchedule> = mutableListOf() //todo map
 
@@ -55,15 +57,17 @@ class ScheduleCreateViewModel @Inject constructor(
             employeesForSchedule.add(EmployeeForSchedule(employee.key.id, employee.value.toMutableSet()))
         }
 
-        val schedule = Schedule(schedule =
+        val schedule = Schedule(
+            schedule =
         scheduleGenerator.generateSchedule(
-            employeesForSchedule,
+            employeesForSchedule.shuffled(),
             daysInMonth,
             _scheduleCreateUiState.value.countEmployeesPerDay.intValue
         ),
             month = currentMonth,
             year = currentYear,
         )
+
         try {
             scheduleRepository.insertNewScheduler(
                 schedule.toScheduleDbEntity()
@@ -71,6 +75,7 @@ class ScheduleCreateViewModel @Inject constructor(
             _doneInsert.value = true
         } catch (e: Exception) {
             _doneInsert.value = false
+            _scheduleCreateUiState.value.startGeneration.value = false
         }
     }
 }

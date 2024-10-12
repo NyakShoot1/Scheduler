@@ -9,28 +9,22 @@ import androidx.lifecycle.viewModelScope
 import com.example.schreduler.data.model.Employee
 import com.example.schreduler.data.room.repository.EmployeeRepository
 import com.example.schreduler.data.room.repository.ScheduleRepository
-import com.example.schreduler.utils.CalendarHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.time.Year
+import java.time.YearMonth
 import javax.inject.Inject
 
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
     private val employeeRepository: EmployeeRepository,
     private val scheduleRepository: ScheduleRepository,
-    private val calendarHandler: CalendarHandler = CalendarHandler()
 ) : ViewModel() {
 
-    private val _scheduleUiState = mutableStateOf(
-        SchedulerUiState(
-            currentDay = mutableStateOf(
-                calendarHandler.getCurrentDay().toString()
-            )
-        )
-    )
-    val scheduleUiState: State<SchedulerUiState> = _scheduleUiState
+    private val _scheduleUiState = mutableStateOf(ScheduleUiState())
+    val scheduleUiState: State<ScheduleUiState> = _scheduleUiState
 
-    private fun updateUIState(update: SchedulerUiState.() -> SchedulerUiState) {
+    private fun updateUIState(update: ScheduleUiState.() -> ScheduleUiState) {
         _scheduleUiState.value = _scheduleUiState.value.update()
     }
 
@@ -41,8 +35,8 @@ class ScheduleViewModel @Inject constructor(
             val employees = employeeRepository.getEmployees().map { it.tupleToEmployee() }
             val currentSchedule =
                 scheduleRepository.getSchedule(
-                    calendarHandler.getCurrentMonth(),
-                    calendarHandler.getCurrentYear()
+                    YearMonth.now().monthValue,
+                    Year.now().value
                 )
             if (currentSchedule != null)
                 updateUIState {
@@ -53,7 +47,7 @@ class ScheduleViewModel @Inject constructor(
                     )
                 }
             else
-                updateUIState { copy(schedule=schedule) }
+                updateUIState { copy(schedule = schedule) }
         } catch (e: Exception) {
             Log.d("get_schedule_error", e.toString())
         }

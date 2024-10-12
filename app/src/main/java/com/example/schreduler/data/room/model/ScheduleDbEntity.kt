@@ -12,6 +12,6 @@ import androidx.room.PrimaryKey
 data class ScheduleDbEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "schedule") val schedule: String,
-    @ColumnInfo(name = "month") val month: Byte,
+    @ColumnInfo(name = "month") val month: Int,
     @ColumnInfo(name = "year") val year: Int
 )

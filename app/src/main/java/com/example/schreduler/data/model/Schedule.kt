@@ -5,7 +5,7 @@ import com.example.schreduler.data.room.model.ScheduleDbEntity
 data class Schedule(
     val id: Long = 0,
     val schedule: MutableMap<Int, MutableList<Long>>,
-    val month: Byte,
+    val month: Int,
     val year: Int
 ){
     fun toScheduleDbEntity(): ScheduleDbEntity{

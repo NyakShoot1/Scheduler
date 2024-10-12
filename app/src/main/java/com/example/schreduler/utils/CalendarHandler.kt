@@ -23,8 +23,8 @@ class CalendarHandler @Inject constructor() {
         return calendarInstance.get(Calendar.DAY_OF_MONTH)
     }
 
-    fun getCurrentMonth(): Byte {
-        return calendarInstance.get(Calendar.MONTH).toByte()
+    fun getCurrentMonth(): Int {
+        return calendarInstance.get(Calendar.MONTH)
     }
 
     fun getCurrentDaysInMonth(): Int {

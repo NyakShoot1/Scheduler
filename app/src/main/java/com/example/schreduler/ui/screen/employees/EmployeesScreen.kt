@@ -38,7 +38,7 @@ fun EmployeesScreen(
                     EmployeeCard(
                         employee = employee.tupleToEmployee()
                     ){
-
+                        viewModel.deleteEmployee(employee.id)
                     }
                 }
             }

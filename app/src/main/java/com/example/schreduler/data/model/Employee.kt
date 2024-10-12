@@ -8,9 +8,9 @@ import kotlin.random.Random
 
 data class Employee(
     val id: Long = 0,
-    var name: String = "",
-    var surname: String = "",
-    var color: Color = Random.nextColor()
+    val name: String = "",
+    val surname: String = "",
+    val color: Color = Random.nextColor()
 ){
     fun toEmployeeDbEntity(): EmployeeDbEntity {
         return EmployeeDbEntity(
