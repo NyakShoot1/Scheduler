@@ -24,7 +24,7 @@ fun ScheduleTopAppBar(
     CenterAlignedTopAppBar(
         title = {
             Text(
-                "Сотрудники", // TODO Resource
+                "Расписание", // TODO Resource
                 color = scheduleTopAppBarColor
             )
         },

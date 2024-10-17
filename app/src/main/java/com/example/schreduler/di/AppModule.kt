@@ -1,4 +1,4 @@
-package com.example.schreduler
+package com.example.schreduler.di
 
 import android.content.Context
 import androidx.room.Room

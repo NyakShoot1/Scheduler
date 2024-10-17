@@ -21,6 +21,7 @@ class ScheduleViewModel @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
 ) : ViewModel() {
 
+
     private val _scheduleUiState = mutableStateOf(ScheduleUiState())
     val scheduleUiState: State<ScheduleUiState> = _scheduleUiState
 
@@ -41,6 +42,7 @@ class ScheduleViewModel @Inject constructor(
             if (currentSchedule != null)
                 updateUIState {
                     copy(
+                        employees = mutableStateOf(employees),
                         schedule = mutableStateOf(currentSchedule.schedule.mapValues { entry ->
                             entry.value.mapNotNull { userId -> employees.find { it.id == userId } }
                         })

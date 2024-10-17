@@ -37,7 +37,6 @@ fun ScheduleScreen(
     LaunchedEffect(Unit) {
         viewModel.getSchedule()
     }
-
     val uiState = viewModel.scheduleUiState.value
 
     Column(
@@ -86,9 +85,12 @@ fun ScheduleScreen(
         }
 
         DefaultBlueButton(
-            onClick = { navController.navigate(Screen.ScheduleCreate.route) },
+            onClick = {
+                navController.navigate(Screen.ScheduleCreate.route)
+            },
             textRes = R.string.create_schedule_label
         )
     }
 
 }
+

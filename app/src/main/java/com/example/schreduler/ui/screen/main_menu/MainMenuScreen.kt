@@ -23,7 +23,9 @@ fun MainMenuScreen(
 ){
     val context = LocalContext.current
     Column(
-        modifier = Modifier.fillMaxSize().padding(bottom = 10.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
     ) {
@@ -32,7 +34,6 @@ fun MainMenuScreen(
             text = stringResource(id = R.string.employee_button_name)
         ) {
             navController.navigate(Screen.Employees.route)
-
         }
         MainMenuButton(
             text = stringResource(id = R.string.schedule_button_name)

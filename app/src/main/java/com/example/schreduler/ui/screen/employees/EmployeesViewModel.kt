@@ -18,12 +18,14 @@ class EmployeesViewModel @Inject constructor(
     private val _employeesUiState = mutableStateOf(EmployeesUiState())
     val employeesUiState: State<EmployeesUiState> = _employeesUiState
 
+    
+
     private fun updateUIState(update: EmployeesUiState.() -> EmployeesUiState) {
         _employeesUiState.value = _employeesUiState.value.update()
     }
 
     fun getEmployees() = viewModelScope.launch {
-        val listEmployees = mutableStateOf(employeeRepository.getEmployees())
+        val listEmployees = mutableStateOf(employeeRepository.getEmployees().map { it.tupleToEmployee() })
         updateUIState {
             copy(employees = listEmployees)
         }

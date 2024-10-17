@@ -36,7 +36,7 @@ fun EmployeesScreen(
             ) {
                 items(viewModel.employeesUiState.value.employees.value) { employee ->
                     EmployeeCard(
-                        employee = employee.tupleToEmployee()
+                        employee = employee
                     ){
                         viewModel.deleteEmployee(employee.id)
                     }

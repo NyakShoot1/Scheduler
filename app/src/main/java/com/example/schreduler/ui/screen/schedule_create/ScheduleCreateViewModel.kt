@@ -53,17 +53,22 @@ class ScheduleCreateViewModel @Inject constructor(
 
         val employeesForSchedule: MutableList<EmployeeForSchedule> = mutableListOf() //todo map
 
-        for (employee in _scheduleCreateUiState.value.employeesWithNotWorkingDays){
-            employeesForSchedule.add(EmployeeForSchedule(employee.key.id, employee.value.toMutableSet()))
+        for (employee in _scheduleCreateUiState.value.employeesWithNotWorkingDays) {
+            employeesForSchedule.add(
+                EmployeeForSchedule(
+                    employee.key.id,
+                    employee.value.toMutableSet()
+                )
+            )
         }
 
         val schedule = Schedule(
             schedule =
-        scheduleGenerator.generateSchedule(
-            employeesForSchedule.shuffled(),
-            daysInMonth,
-            _scheduleCreateUiState.value.countEmployeesPerDay.intValue
-        ),
+            scheduleGenerator.generateSchedule(
+                employeesForSchedule.shuffled(),
+                daysInMonth,
+                _scheduleCreateUiState.value.countEmployeesPerDay.intValue
+            ),
             month = currentMonth,
             year = currentYear,
         )
