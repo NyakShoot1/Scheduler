@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier
                             .padding(innerPadding)
-                            .background(Color(0x40D9D9D9))
+                            .background(Color(0xFFFFFFFF))
                     ) {
                         SchedulerNavGraph(navController)
                     }

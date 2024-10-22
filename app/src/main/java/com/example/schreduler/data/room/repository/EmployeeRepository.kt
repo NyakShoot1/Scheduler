@@ -19,19 +19,19 @@ class EmployeeRepository @Inject constructor(
 
     suspend fun getEmployees(): List<EmployeeTuple>{
         return withContext(Dispatchers.IO) {
-            return@withContext employeeDao.getEmployees()
+            employeeDao.getEmployees()
         }
     }
 
     suspend fun getEmployeeById(employeeId: Long): EmployeeTuple {
         return withContext(Dispatchers.IO) {
-            return@withContext employeeDao.getEmployeeById(employeeId)
+            employeeDao.getEmployeeById(employeeId)
         }
     }
 
     suspend fun deleteEmployeeById(employeeId: Long) {
         return withContext(Dispatchers.IO) {
-            return@withContext employeeDao.deleteEmployeeById(employeeId)
+            employeeDao.deleteEmployeeById(employeeId)
         }
     }
 

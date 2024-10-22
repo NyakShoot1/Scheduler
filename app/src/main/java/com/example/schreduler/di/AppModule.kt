@@ -33,7 +33,7 @@ object AppModule {
         app,
         AppDatabase::class.java,
         "database3.db"
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides
