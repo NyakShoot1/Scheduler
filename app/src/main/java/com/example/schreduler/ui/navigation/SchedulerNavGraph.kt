@@ -1,5 +1,9 @@
 package com.example.schreduler.ui.navigation
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -16,7 +20,11 @@ fun SchedulerNavGraph(
 ){
     NavHost(
         navController = navController,
-        startDestination = Screen.MainMenu.route
+        startDestination = Screen.MainMenu.route,
+        enterTransition = { slideInVertically(initialOffsetY = {1000}) + fadeIn() },
+        exitTransition = { slideOutVertically(targetOffsetY = {-1000}) + fadeOut() },
+        popEnterTransition = { slideInVertically(initialOffsetY = {1000}) + fadeIn() },
+        popExitTransition = { slideOutVertically(targetOffsetY = {-1000}) + fadeOut() }
     ){
         composable(Screen.MainMenu.route){
             MainMenuScreen(navController)

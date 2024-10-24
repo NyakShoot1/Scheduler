@@ -16,4 +16,6 @@
     <string name="surname_label">Фамилия</string>
     <string name="fill_fields_warn">Заполните все поля!</string>
     <string name="create_schedule_label">Создать расписание</string>
+    <string name="default_calendar">Обычный</string>
+    <string name="grid_calendar">График</string>
 </resources>

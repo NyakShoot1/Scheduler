@@ -19,6 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.schreduler.ui.theme.SchedulerDefaultLightThemeColors
 
 @Composable
 fun EmployeeCreateTextField(
@@ -51,8 +52,8 @@ fun EmployeeCreateTextField(
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 cursorColor = Color.LightGray,
-                unfocusedContainerColor = Color.White,
-                focusedContainerColor = Color.White
+                unfocusedContainerColor = SchedulerDefaultLightThemeColors.defaultBackgroundElementColor,
+                focusedContainerColor = SchedulerDefaultLightThemeColors.defaultBackgroundElementColor
             ),
             textStyle = TextStyle(
                 fontSize = 14.sp,

@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.schreduler.data.model.Employee
+import com.example.schreduler.ui.theme.SchedulerDefaultLightThemeColors
 
 @Composable
 fun EmployeeCard(
@@ -40,7 +41,7 @@ fun EmployeeCard(
     var showDialog by remember { mutableStateOf(false) }
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = SchedulerDefaultLightThemeColors.defaultBackgroundElementColor
         ),
         modifier = Modifier
             .fillMaxWidth(0.95f)

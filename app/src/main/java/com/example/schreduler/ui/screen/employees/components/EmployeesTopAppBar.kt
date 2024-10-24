@@ -11,31 +11,30 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.schreduler.R
 import com.example.schreduler.ui.navigation.Screen
+import com.example.schreduler.ui.theme.SchedulerDefaultLightThemeColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmployeesTopAppBar(
     navController: NavHostController
 ) {
-    val employeesTopAppBarColor = Color(0xFF2D0EE7)
     TopAppBar(
         title = {
             Text(
                 "Сотрудники", // TODO Resource
-                color = employeesTopAppBarColor
+                color = SchedulerDefaultLightThemeColors.defaultIconColor
             )
         },
         navigationIcon = {
             IconButton(
                 onClick = { navController.popBackStack() },
                 colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = employeesTopAppBarColor
+                    contentColor = SchedulerDefaultLightThemeColors.defaultIconColor
                 )
             ) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -47,7 +46,7 @@ fun EmployeesTopAppBar(
                     navController.navigate(Screen.EmployeeCreate.route)
                 },
                 colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = employeesTopAppBarColor
+                    contentColor = SchedulerDefaultLightThemeColors.defaultIconColor
                 )
             ) {
                 Icon(painter = painterResource(R.drawable.baseline_person_add_alt_24), contentDescription = "Add")

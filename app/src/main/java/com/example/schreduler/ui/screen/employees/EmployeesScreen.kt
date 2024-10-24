@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -19,6 +20,8 @@ import com.example.schreduler.ui.screen.employees.components.EmployeeCard
 fun EmployeesScreen(
     viewModel: EmployeesViewModel = hiltViewModel()
 ) {
+    val uiState = viewModel.employeesUiState.collectAsState()
+
     LaunchedEffect(Unit) {
         viewModel.getEmployees()
     }
@@ -29,22 +32,26 @@ fun EmployeesScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        if (viewModel.employeesUiState.value.employees.value.isNotEmpty()) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                items(viewModel.employeesUiState.value.employees.value) { employee ->
-                    EmployeeCard(
-                        employee = employee
-                    ){
-                        viewModel.deleteEmployee(employee.id)
+        when (uiState.value.employees.isNotEmpty()) {
+            true -> {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(uiState.value.employees) { employee ->
+                        EmployeeCard(
+                            employee = employee
+                        ) {
+                            viewModel.deleteEmployee(employee.id)
+                        }
                     }
                 }
             }
-        } else {
-            Text(text = "Никто не работает :(")
-        }
-    }
 
+            false -> {
+                Text("Никто не работатет :(") // todo res
+            }
+        }
+
+    }
 }

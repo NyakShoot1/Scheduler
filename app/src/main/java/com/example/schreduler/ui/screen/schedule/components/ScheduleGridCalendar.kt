@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,9 +22,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.schreduler.data.model.DayType
 import com.example.schreduler.data.model.Employee
 import com.example.schreduler.data.model.ScheduleDay
+import com.example.schreduler.data.model.enums.DayType
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -36,19 +37,89 @@ private object GraphCalendarColors {
 
 private object GraphCalendarSizes {
     val titleDayHeight = 45.dp
-    val titleDayWeight = 31.dp
 
     val titleEmployeeWeight = 106.dp
     val titleEmployeeHeight = 45.dp
-}
 
+    val cellSpacing = 7.dp
+}
 @Composable
-fun GraphCalendar(
+fun ScheduleGridCalendar(
+    schedule: Map<Int, List<ScheduleDay>>,
+    employees: List<Employee>,
+    modifier: Modifier
+) {
+    val horizontalScrollState = rememberScrollState()
+    val verticalScrollState = rememberScrollState()
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing),
+    ) {
+        // Левая колонка с именами
+        Column(
+            verticalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing)
+        ) {
+            // Заголовок колонки с именами
+            EmployeeTitle()
+
+            // Список имен сотрудников
+            Column(
+                modifier = Modifier
+                    .verticalScroll(verticalScrollState)
+                    .weight(1f),
+                verticalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing)
+            ) {
+                employees.forEach { employee ->
+                    EmployeeNameTitle(employee)
+                }
+            }
+        }
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing)
+        ) {
+            // Верхняя строка с днями
+            Row(
+                modifier = Modifier
+                    .horizontalScroll(horizontalScrollState),
+                horizontalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing)
+            ) {
+                schedule.forEach { (day, _) ->
+                    DayTitle(day)
+                }
+            }
+
+            // Основная сетка календаря
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(verticalScrollState)
+                    .horizontalScroll(horizontalScrollState),
+                verticalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing)
+            ) {
+                employees.forEach { employee ->
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(GraphCalendarSizes.cellSpacing)
+                    ) {
+                        schedule.forEach { (day, scheduleDays) ->
+                            val daySchedule = scheduleDays.find { it.employeeId == employee.id }
+                            ScheduleCell(dayType = daySchedule?.dayType ?: DayType.NOT_WORK)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@Composable
+fun ScheduleGridCalendar2(
     schedule: Map<Int, List<ScheduleDay>>,
     employees: List<Employee>,
     modifier: Modifier
 ) {
     Row(
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(7.dp),
     ) {
         Column(
@@ -134,12 +205,16 @@ fun EmployeeTitle() {
             ),
         contentAlignment = Alignment.Center
     ) {
-        Text("Сотрудник")
+        Text("Сотрудник", color = Color.White) // todo res
     }
 }
 
 @Composable
 fun DayTitle(day: Int) {
+    val dayBackgroundColor = if (
+        LocalDate.now().withDayOfMonth(day).dayOfWeek.value in listOf(6, 7)
+    ) GraphCalendarColors.columnWeekend else GraphCalendarColors.columnTitleColor
+
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
@@ -147,7 +222,7 @@ fun DayTitle(day: Int) {
                 width = GraphCalendarSizes.titleEmployeeHeight,
                 height = GraphCalendarSizes.titleDayHeight
             )
-            .background(GraphCalendarColors.columnTitleColor),
+            .background(dayBackgroundColor),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -155,11 +230,12 @@ fun DayTitle(day: Int) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(day.toString())
+            Text(day.toString(), color = Color.White)
             Text(LocalDate.now().withDayOfMonth(day).dayOfWeek.getDisplayName(
                 TextStyle.SHORT,
                 Locale.getDefault()
-            ).replaceFirstChar { it.uppercaseChar() })
+            ).replaceFirstChar { it.uppercaseChar() }, color = Color.White
+            )
         }
     }
 }
@@ -198,7 +274,7 @@ fun GraphCalendarPreview() {
         }
     }
 
-    GraphCalendar(
+    ScheduleGridCalendar(
         schedule = schedule,
         employees = employees,
         modifier = Modifier

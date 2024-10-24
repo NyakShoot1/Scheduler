@@ -81,17 +81,18 @@ dependencies {
 
     // Dagger Hilt
     val daggerVersion = "2.48"
-
     implementation("com.google.dagger:hilt-android:$daggerVersion")
     ksp("com.google.dagger:hilt-android-compiler:$daggerVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    // GSON
     implementation (libs.gson)
 
+    // test UI performance
+    implementation("androidx.compose.runtime:runtime-tracing:1.7.4")
 
     // Room
     val roomVersion = "2.6.0"
-
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
@@ -103,6 +104,8 @@ dependencies {
     //ColorPicker
     implementation ("com.github.skydoves:colorpicker-compose:1.1.2")
 
+    // livedata
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.4")
 
     //debug
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")

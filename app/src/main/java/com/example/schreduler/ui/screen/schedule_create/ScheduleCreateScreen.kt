@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.schreduler.R
-import com.example.schreduler.ui.screen.default_components.DefaultBlueButton
+import com.example.schreduler.ui.screen.default_components.DefaultButton
 import com.example.schreduler.ui.screen.schedule_create.components.CountEmployeesPerDayDropMenu
 import com.example.schreduler.ui.screen.schedule_create.components.EmployeeCardWithNoWorkingDays
 
@@ -40,7 +40,7 @@ fun ScheduleCreateScreen(
     }
 
     LaunchedEffect(doneState) {
-        if (doneState) {
+        if (doneState!!) {
             Toast.makeText(
                 context,
                 "Расписание создано",
@@ -91,7 +91,7 @@ fun ScheduleCreateScreen(
                         )
                     }
                 }
-                DefaultBlueButton(
+                DefaultButton(
                     onClick = {
                         if (uiState.countEmployeesPerDay.intValue > 0) {
                             viewModel.generateSchedule()
@@ -102,7 +102,8 @@ fun ScheduleCreateScreen(
                                 Toast.LENGTH_SHORT
                             ).show()
                     },
-                    textRes = R.string.create_btn_label
+                    textRes = R.string.create_btn_label,
+                    modifier = Modifier
                 )
             }
         }

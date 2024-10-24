@@ -15,4 +15,6 @@
     <string name="surname_label">Surname</string>
     <string name="fill_fields_warn">Fill in all the fields!</string>
     <string name="create_schedule_label">Create schedule</string>
+    <string name="default_calendar">Default</string>
+    <string name="grid_calendar">Grid</string>
 </resources>

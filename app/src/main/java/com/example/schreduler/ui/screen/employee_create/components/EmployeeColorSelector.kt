@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,8 +26,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.schreduler.ui.screen.employee_create.EmployeeCreateViewModel
 import com.github.skydoves.colorpicker.compose.AlphaSlider
 import com.github.skydoves.colorpicker.compose.AlphaTile
 import com.github.skydoves.colorpicker.compose.BrightnessSlider
@@ -37,9 +34,10 @@ import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 
 @Composable
 fun EmployeeColorSelector(
-    viewModel: EmployeeCreateViewModel = hiltViewModel()
+    color: Color,
+    onColorChange: (Color) -> Unit
 ) {
-    val color = viewModel.employeeCreateUiState.value.color
+
     var showDialog by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier.fillMaxWidth(0.9f),
@@ -53,19 +51,21 @@ fun EmployeeColorSelector(
                 .height(35.dp)
                 .width(120.dp)
                 .clip(RoundedCornerShape(5.dp))
-                .background(color.value)
+                .background(color)
                 .clickable { showDialog = true }
         )
     }
     if (showDialog) {
-        ColorPicker(onDismissRequest = { showDialog = false }, color)
+        ColorPicker(onDismissRequest = { showDialog = false }, onColorChange = { newColor ->
+            onColorChange(newColor)
+        })
     }
 }
 
 @Composable
 private fun ColorPicker(
     onDismissRequest: () -> Unit,
-    color: MutableState<Color>,
+    onColorChange: (Color) -> Unit
 ) {
     val controller = rememberColorPickerController()
     Dialog(
@@ -127,7 +127,7 @@ private fun ColorPicker(
                 ) { Text("Dismiss") } //todo
                 TextButton(
                     onClick = {
-                        color.value = controller.selectedColor.value
+                        onColorChange(controller.selectedColor.value)
                         onDismissRequest()
                     },
                     modifier = Modifier.padding(2.dp),

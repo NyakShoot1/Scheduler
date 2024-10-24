@@ -1,8 +1,10 @@
 package com.example.schreduler.ui.screen.schedule_create
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateMap
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.schreduler.data.model.EmployeeForSchedule
@@ -29,18 +31,19 @@ class ScheduleCreateViewModel @Inject constructor(
         _scheduleCreateUiState.value = _scheduleCreateUiState.value.update()
     }
 
-    private val _doneInsert: MutableState<Boolean> = mutableStateOf(false)
-    val doneInsert: State<Boolean> = _doneInsert
+    private val _doneInsert = MutableLiveData<Boolean>(false)
+    val doneInsert: LiveData<Boolean> = _doneInsert
 
     private val scheduleGenerator = ScheduleGenerator()
 
     fun getEmployees() = viewModelScope.launch {
         val employees = employeeRepository.getEmployees()
         updateUIState {
-            for (employee in employees) {
-                employeesWithNotWorkingDays[employee.tupleToEmployee()] = mutableSetOf()
-            }
-            copy(employeesWithNotWorkingDays = employeesWithNotWorkingDays)
+            copy(
+                employeesWithNotWorkingDays = employees.associateTo(SnapshotStateMap()) {
+                    it.tupleToEmployee() to mutableSetOf()
+                }
+            )
         }
     }
 
@@ -51,16 +54,13 @@ class ScheduleCreateViewModel @Inject constructor(
         val currentMonth = YearMonth.now().month.value
         val currentYear = Year.now().value
 
-        val employeesForSchedule: MutableList<EmployeeForSchedule> = mutableListOf() //todo map
-
-        for (employee in _scheduleCreateUiState.value.employeesWithNotWorkingDays) {
-            employeesForSchedule.add(
+        val employeesForSchedule: List<EmployeeForSchedule> =
+            _scheduleCreateUiState.value.employeesWithNotWorkingDays.map {
                 EmployeeForSchedule(
-                    employee.key.id,
-                    employee.value.toMutableSet()
+                    it.key.id,
+                    it.value.toMutableSet()
                 )
-            )
-        }
+            }
 
         val schedule = Schedule(
             schedule =
