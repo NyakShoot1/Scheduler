@@ -20,6 +20,7 @@ fun DefaultButton(
     isUppercase: Boolean = false,
     isOutlined: Boolean = false,
     modifier: Modifier,
+    transitionInProgress: Boolean = true,
     onClick: () -> Unit,
 ) {
     val border = BorderStroke(2.dp, SchedulerDefaultLightThemeColors.defaultButtonColor)
@@ -31,9 +32,10 @@ fun DefaultButton(
             ),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (!isOutlined) SchedulerDefaultLightThemeColors.defaultButtonColor else Color.Transparent
+            containerColor = if (!isOutlined) SchedulerDefaultLightThemeColors.defaultButtonColor else Color.Transparent,
         ),
-        shape = RoundedCornerShape(45.dp)
+        shape = RoundedCornerShape(45.dp),
+        enabled = transitionInProgress
     ) {
         val text = stringResource(textRes)
         Text(
